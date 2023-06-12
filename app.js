@@ -1,23 +1,25 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
-//const { baseDeDatos } = require("./env.js");
 
 const app = express();
 
+const baseDeDatos = 'si esta es'
+
 app.get("/", (req, res, next) => {
-  res.send("Hola mis mejores amigos");
+  res.send(baseDeDatos);
 });
+
+console.log(baseDeDatos);
 
 app.listen(process.env.PORT || 3400);
 
-// const db = mongoose.connection;
-// db.on("error", (error) => {
-//   console.error(error);
-// });
-// db.once("open", () => {
-//   console.log("conectado a Mongoose");
-
-//   app.listen(process.env.PORT || 3400);
-// });
-
-//
+// mongoose
+//   .connect(baseDeDatos)
+//   .then(() => {
+//     app.listen(process.env.PORT || 3400);
+//     console.log("conecto");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
