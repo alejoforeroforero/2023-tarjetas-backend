@@ -2,12 +2,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const baseDeDatos = require("./env.js");
+
 const app = express();
 
-const baseDeDatos = 'si esta es'
-
 app.get("/", (req, res, next) => {
-  res.send(baseDeDatos);
+  res.send(baseDeDatos.baseDeDatos);
 });
 
 console.log(baseDeDatos);
