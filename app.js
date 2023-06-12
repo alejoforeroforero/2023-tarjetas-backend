@@ -1,16 +1,55 @@
-
-const express = require("express");
-const mongoose = require("mongoose");
-
 //require("dotenv").config();
 
-const app = express();
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-app.get("/", (req, res, next) => {
-  res.send('listo');
+const app = express();
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+  next();
 });
 
-app.listen(process.env.PORT || 3300);
+const tarjetaEsquema = mongoose.Schema({
+  anverso: { type: String },
+  reverso: { type: String },
+  categoria: { type: String },
+});
+
+const tarjetaModelo = mongoose.model("tarjetas", tarjetaEsquema);
+
+const categoriaEsquema = mongoose.Schema({
+  titulo: { type: String },
+  tarjetasIds: [{ type: String }],
+});
+
+const categoriaModelo = mongoose.model("categorias", categoriaEsquema);
+
+app.get("/", async (req, res, next) => {
+  const tarjetas = await tarjetaModelo.find();
+
+  const categorias = await categoriaModelo.find();
+
+  const data = {
+    tarjetas,
+    categorias,
+  };
+
+  res.json(data);
+});
+
+app.get("/:id", async (req, res, next) => {
+  const tarjeta = await tarjetaModelo.findById(req.params.id);
+
+  res.json(tarjeta);
+});
+
 
 mongoose
   .connect(process.env.BASE)
@@ -19,5 +58,5 @@ mongoose
     console.log("conecto");
   })
   .catch((error) => {
-    console.log('Algo paso');
+    console.log("Algo paso");
   });
