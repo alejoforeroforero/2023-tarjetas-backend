@@ -7,19 +7,17 @@ require("dotenv").config();
 const app = express();
 
 app.get("/", (req, res, next) => {
-  res.send(process.env.BASE);
+  res.send('listo');
 });
 
+app.listen(process.env.PORT || 3300);
 
-
-app.listen(process.env.PORT || 3400);
-
-// mongoose
-//   .connect(baseDeDatos)
-//   .then(() => {
-//     app.listen(process.env.PORT || 3400);
-//     console.log("conecto");
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+mongoose
+  .connect(process.env.BASE)
+  .then(() => {
+    app.listen(process.env.PORT || 3400);
+    console.log("conecto");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
