@@ -2,7 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-// require("dotenv").config();
+//require("dotenv").config();
 
 const app = express();
 
@@ -19,5 +19,5 @@ mongoose
     console.log("conecto");
   })
   .catch((error) => {
-    console.log(error);
+    console.log('Algo paso');
   });
