@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { baseDeDatos } = require("./env.js");
+//const { baseDeDatos } = require("./env.js");
 
 const app = express();
 
